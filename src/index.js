@@ -1,15 +1,22 @@
-import './styles.css';
+import "./styles.css";
 
-const operationField = document.querySelector('.calculator');
-const display = document.querySelector('.display');
+const operationField = document.querySelector(".calculator");
+const display = document.querySelector(".display");
 let separator = false;
-let firstOperand = '';
-let secondOperand = '';
-let operator = '';
+let firstOperand = "";
+let secondOperand = "";
+let operator = "";
 let intermediateResult = 0;
 display.innerText = intermediateResult;
 
-operationField.addEventListener('click', getValueOfPressedButton);
+operationField.addEventListener("click", getValueOfPressedButton);
+
+const toggleBtn = document.getElementById("theme-toggle");
+const targets = document.querySelectorAll(".theme-target");
+
+toggleBtn.addEventListener("click", () => {
+  targets.forEach((el) => el.classList.toggle("dark-theme"));
+});
 
 function getValueOfPressedButton(event) {
   let pressedButton = event.target;
@@ -38,7 +45,7 @@ function getValueOfPressedButton(event) {
 
 function gettingFirstOperand(pressedButton) {
   let addingNumbersToFirstOperand =
-    pressedButton.classList.contains('operand') && !operator;
+    pressedButton.classList.contains("operand") && !operator;
 
   if (addingNumbersToFirstOperand) {
     firstOperand += pressedButton.innerText;
@@ -54,8 +61,8 @@ function settingValueOfFirstOperandIfIntermediateResultExist() {
 
 function addingFractionalPartToFirstOperand(pressedButton) {
   let addingFractionalPartToFirstOperand =
-    pressedButton.classList.contains('separator') && !operator && !separator;
-  let parsedSeparator = '.';
+    pressedButton.classList.contains("separator") && !operator && !separator;
+  let parsedSeparator = ".";
 
   if (addingFractionalPartToFirstOperand) {
     firstOperand =
@@ -68,7 +75,7 @@ function addingFractionalPartToFirstOperand(pressedButton) {
 }
 
 function settingOperator(pressedButton) {
-  if (pressedButton.classList.contains('operator')) {
+  if (pressedButton.classList.contains("operator")) {
     separator = false;
 
     getIntermediateResult();
@@ -81,8 +88,8 @@ function settingOperator(pressedButton) {
 function changingOperatorWhenOnlyFirstOperandExist(pressedButton) {
   let operatorToChange = !secondOperand && !intermediateResult;
 
-  if (pressedButton.classList.contains('operator') && operatorToChange) {
-    operator = '';
+  if (pressedButton.classList.contains("operator") && operatorToChange) {
+    operator = "";
     operator = pressedButton.innerText;
     display.innerText = firstOperand + operator;
   }
@@ -90,7 +97,7 @@ function changingOperatorWhenOnlyFirstOperandExist(pressedButton) {
 
 function gettingSecondOperand(pressedButton) {
   let enteringSecondOperand =
-    !!firstOperand && operator && pressedButton.classList.contains('operand');
+    !!firstOperand && operator && pressedButton.classList.contains("operand");
 
   if (enteringSecondOperand) {
     secondOperand += pressedButton.innerText;
@@ -103,8 +110,8 @@ function addingFractionalPartToSecondOperand(pressedButton) {
     firstOperand &&
     operator &&
     !separator &&
-    pressedButton.classList.contains('separator');
-  let parsedSeparator = '.';
+    pressedButton.classList.contains("separator");
+  let parsedSeparator = ".";
 
   if (addingFractionalPartToSecondOperand) {
     secondOperand =
@@ -123,7 +130,7 @@ function changingOperandFromPositiveToNegative(
   pressedButton,
   firstOperandExists,
 ) {
-  if (!pressedButton.classList.contains('digital-inversion')) {
+  if (!pressedButton.classList.contains("digital-inversion")) {
     return;
   }
 
@@ -140,7 +147,7 @@ function changingOperandFromPositiveToNegative(
 }
 
 function gettingResult(pressedButton) {
-  if (!pressedButton.classList.contains('result-button')) {
+  if (!pressedButton.classList.contains("result-button")) {
     return;
   }
 
@@ -152,12 +159,12 @@ function gettingResult(pressedButton) {
     getIntermediateResult();
 
     display.innerText = intermediateResult;
-    firstOperand = '';
+    firstOperand = "";
   }
 }
 
 function clearingResult(pressedButton) {
-  if (pressedButton.classList.contains('clear-button')) {
+  if (pressedButton.classList.contains("clear-button")) {
     dataReset();
 
     display.innerText = 0;
@@ -165,36 +172,36 @@ function clearingResult(pressedButton) {
 }
 
 function dataReset() {
-  firstOperand = '';
-  secondOperand = '';
+  firstOperand = "";
+  secondOperand = "";
   intermediateResult = 0;
-  operator = '';
+  operator = "";
   separator = false;
 }
 
 function getIntermediateResult() {
   let result;
   switch (operator) {
-    case '+':
+    case "+":
       result = Number(firstOperand) + Number(secondOperand);
       intermediateResult = result % 1 === 0 ? result : result.toFixed(2);
       break;
-    case '−':
+    case "−":
       result = firstOperand - secondOperand;
       intermediateResult = result % 1 === 0 ? result : result.toFixed(2);
       break;
-    case '∗':
+    case "∗":
       result = firstOperand * secondOperand;
       intermediateResult = result % 1 === 0 ? result : result.toFixed(2);
       break;
-    case '÷':
+    case "÷":
       result = firstOperand / secondOperand;
       intermediateResult = result % 1 === 0 ? result : result.toFixed(2);
       break;
   }
 
-  operator = '';
-  secondOperand = '';
+  operator = "";
+  secondOperand = "";
 
   return intermediateResult;
 }

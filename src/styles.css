@@ -8,12 +8,16 @@
     margin-bottom: 20px;
 }
 
-.theme-toggle {
+#theme-toggle {
     background-color: beige;
     margin-left: auto;
     height: 40px;
     border: 1px solid sandybrown;
     border-radius: 10px;
+}
+
+.theme-target.dark-theme {
+    background-color: #4a84a5;
 }
 
 .wrapper {
