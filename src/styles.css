@@ -46,7 +46,7 @@
     border: 1px solid black;
     display: flex;
     align-items: center;
-    justify-content: right;
+    justify-content: flex-end;
 }
 
 .display {
@@ -57,20 +57,13 @@
     border: 1px solid black;
     display: flex;
     align-items: center;
-    justify-content: right;
+    justify-content: flex-end;
 }
 
 .calculator {
     width: 340px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-content: space-between;
-}
-
-.calculator {
     display: grid;
-    grid-template-columns: repeat(4, 1fr); /* 4 равные колонки */
+    grid-template-columns: repeat(4, 1fr);
     gap: 10px;
     max-width: 340px;
 }
