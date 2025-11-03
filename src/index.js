@@ -7,6 +7,8 @@ let firstOperand = "";
 let secondOperand = "";
 let operator = "";
 let intermediateResult = 0;
+let percentApplied = false;
+let resultJustCalculated = false;
 display.innerText = intermediateResult;
 
 operationField.addEventListener("click", getValueOfPressedButton);
@@ -34,6 +36,8 @@ function getValueOfPressedButton(event) {
 
   gettingSecondOperand(pressedButton);
 
+  applyingPercentToOperand(pressedButton);
+
   addingFractionalPartToSecondOperand(pressedButton);
 
   changingOperandFromPositiveToNegative(pressedButton, firstOperandExists);
@@ -47,9 +51,39 @@ function gettingFirstOperand(pressedButton) {
   let addingNumbersToFirstOperand =
     pressedButton.classList.contains("operand") && !operator;
 
+  if (resultJustCalculated) {
+    dataReset();
+  }
+
   if (addingNumbersToFirstOperand) {
-    firstOperand += pressedButton.innerText;
+    const value = pressedButton.innerText;
+
+    if (firstOperand === "0" && value === "0") return;
+
+    if (firstOperand === "0" && value !== ".") {
+      firstOperand = value; // заменяем 0 на новую цифру
+    } else {
+      firstOperand += value;
+    }
+
     display.innerText = firstOperand;
+  }
+}
+function applyingPercentToOperand(pressedButton) {
+  if (!pressedButton.classList.contains("percent")) return;
+
+  if (secondOperand) {
+    secondOperand = (parseFloat(secondOperand) / 100).toString();
+    display.innerText = firstOperand + operator + secondOperand;
+    percentApplied = true;
+  } else if (firstOperand && !operator) {
+    firstOperand = (parseFloat(firstOperand) / 100).toString();
+    display.innerText = firstOperand;
+    percentApplied = true;
+  } else if (intermediateResult && !secondOperand) {
+    intermediateResult = (parseFloat(intermediateResult) / 100).toString();
+    display.innerText = intermediateResult;
+    percentApplied = true;
   }
 }
 
@@ -75,6 +109,7 @@ function addingFractionalPartToFirstOperand(pressedButton) {
 }
 
 function settingOperator(pressedButton) {
+  if (!firstOperand) return;
   if (pressedButton.classList.contains("operator")) {
     separator = false;
 
@@ -86,10 +121,9 @@ function settingOperator(pressedButton) {
 }
 
 function changingOperatorWhenOnlyFirstOperandExist(pressedButton) {
-  let operatorToChange = !secondOperand && !intermediateResult;
+  let operatorToChange = !secondOperand && !intermediateResult && firstOperand;
 
   if (pressedButton.classList.contains("operator") && operatorToChange) {
-    operator = "";
     operator = pressedButton.innerText;
     display.innerText = firstOperand + operator;
   }
@@ -161,13 +195,13 @@ function gettingResult(pressedButton) {
     display.innerText = intermediateResult;
     firstOperand = "";
   }
+
+  resultJustCalculated = true;
 }
 
 function clearingResult(pressedButton) {
   if (pressedButton.classList.contains("clear-button")) {
     dataReset();
-
-    display.innerText = 0;
   }
 }
 
@@ -177,6 +211,9 @@ function dataReset() {
   intermediateResult = 0;
   operator = "";
   separator = false;
+  percentApplied = false;
+  resultJustCalculated = false;
+  display.innerText = 0;
 }
 
 function getIntermediateResult() {
