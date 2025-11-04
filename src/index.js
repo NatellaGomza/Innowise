@@ -1,12 +1,10 @@
 import "./styles.css";
 import { Calculator } from "./Calculator.js";
 
-const display = document.querySelector(".display");
+const display = document.getElementById("display");
 const calculator = new Calculator(display);
-
-document.querySelector(".calculator").addEventListener("click", (e) => {
-  calculator.handleButtonClick(e);
-});
+const buttons = document.querySelectorAll("button");
+calculator.initialize(buttons);
 
 document.getElementById("theme-toggle").addEventListener("click", () => {
   document
