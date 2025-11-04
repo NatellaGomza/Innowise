@@ -1,33 +1,66 @@
+/* Cтили для светлой темы */
+:root {
+    --bg-main: #F0F4F8;
+    --bg-wrapper: #FCFBF7;
+    --bg-display: #E2E8F0;
+    --bg-operand: #FCFBF7;
+    --accent-color: #4299E1;
+    --text-color: #2D3748;
+}
+
+/* Стили для темной темы */
+.theme-target.dark-theme {
+    --bg-wrapper: #374151;
+    --bg-display: #4B5563;
+    --bg-operand: #4B5563;
+    --accent-color: #10B981;
+    --text-color: #F3F4F6;
+}
+
+body {
+    background-color: var(--bg-main);
+    color: var(--text-color);
+}
+
 #app {
     width: 420px;
-    margin: 50px auto
+    margin: 50px auto;
 }
 
 .toolbar {
     display: flex;
     margin-bottom: 20px;
+    justify-content: flex-end;
 }
 
 #theme-toggle {
-    background-color: beige;
-    margin-left: auto;
+    background-color: var(--bg-display);
+    color: var(--text-color);
     height: 40px;
-    border: 1px solid sandybrown;
+    padding: 0 15px;
+    border: 1px solid var(--accent-color);
     border-radius: 10px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
 
-.theme-target.dark-theme {
-    background-color: #4a84a5;
+#theme-toggle:hover {
+    background-color: var(--accent-color);
+    color: #FFFFFF;
+    border-color: var(--accent-color);
 }
 
 .wrapper {
-    border: 1px solid black;
-    background-color: aquamarine;
+    border: 1px solid var(--bg-display);
+    background-color: var(--bg-wrapper);
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     border-radius: 10px;
     padding: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .display_wrapper {
@@ -39,25 +72,19 @@
     flex-wrap: wrap;
 }
 
-.history {
-    width: 370px;
-    height: 20%;
-    background-color: antiquewhite;
-    border: 1px solid black;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-}
-
 #display {
     width: 370px;
     height: 40%;
-    padding-right: 10px;
-    background-color: antiquewhite;
-    border: 1px solid black;
+    padding: 10px;
+    background-color: var(--bg-display);
+    color: var(--text-color);
+    border: 1px solid var(--bg-display);
+    border-radius: 5px;
     display: flex;
     align-items: center;
     justify-content: flex-end;
+    font-size: 2.5rem;
+    overflow: hidden;
 }
 
 .calculator {
@@ -66,17 +93,31 @@
     grid-template-columns: repeat(4, 1fr);
     gap: 10px;
     max-width: 340px;
+    margin-top: 15px;
 }
 
 .button {
     padding: 20px;
     font-size: 1.2rem;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    color: var(--text-color);
+    background-color: var(--bg-operand);
+}
+
+.button:hover {
+    opacity: 0.8;
 }
 
 .zero {
     grid-column: span 2;
+    border-radius: 30px;
+    text-align: left;
+    padding-left: 30px;
 }
 
 .col-accent {
-    background-color: sandybrown;
+    background-color: var(--accent-color);
+    color: #FFFFFF;
 }
