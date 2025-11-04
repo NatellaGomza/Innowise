@@ -1,4 +1,4 @@
-import './styles.css';
+import '../styles.css';
 import { Calculator } from './Calculator.js';
 
 const display = document.getElementById('display');
