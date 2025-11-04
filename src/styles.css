@@ -9,10 +9,10 @@
 }
 
 /* Стили для темной темы */
-.theme-target.dark-theme {
+:root .dark-theme {
     --bg-wrapper: #374151;
-    --bg-display: #4B5563;
-    --bg-operand: #4B5563;
+    --bg-display: #6e7c91;
+    --bg-operand: #6e7c91;
     --accent-color: #10B981;
     --text-color: #F3F4F6;
 }
@@ -34,7 +34,7 @@ body {
 }
 
 #theme-toggle {
-    background-color: var(--bg-display);
+    background-color: var(--bg-wrapper);
     color: var(--text-color);
     height: 40px;
     padding: 0 15px;
@@ -47,6 +47,19 @@ body {
 }
 
 #theme-toggle:hover {
+    background-color: var(--accent-color);
+    color: #FFFFFF;
+    border-color: var(--accent-color);
+}
+
+#theme-toggle.dark-theme {
+    background-color: var(--bg-wrapper);
+    color: var(--text-color);
+    border-color: var(--accent-color);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+#theme-toggle.dark-theme:hover {
     background-color: var(--accent-color);
     color: #FFFFFF;
     border-color: var(--accent-color);
@@ -113,7 +126,7 @@ body {
 .zero {
     grid-column: span 2;
     border-radius: 30px;
-    text-align: left;
+    text-align: center;
     padding-left: 30px;
 }
 

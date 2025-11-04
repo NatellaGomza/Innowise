@@ -90,8 +90,17 @@ export class Calculator {
   }
 
   handlePercent() {
-    this.num = (parseFloat(this.num.replace(',', '.')) / 100).toString();
-    this.updateDisplay();
+    const currentNum = parseFloat(this.num.replace(',', '.'));
+    const prevNum = parseFloat(this.numTwo.replace(',', '.'));
+
+    if (this.numTwo !== '' && this.operator !== '') {
+      const percentageValue = (prevNum * currentNum) / 100;
+      this.num = percentageValue.toString().replace('.', ',');
+      this.outputElement.textContent = this.num;
+    } else {
+      this.num = (currentNum / 100).toString().replace('.', ',');
+      this.updateDisplay();
+    }
   }
 
   handleResult() {
@@ -121,6 +130,11 @@ export class Calculator {
       if (this.num !== '' && this.numTwo !== '' && this.operator !== '') {
         this.calculate();
       }
+
+      if (this.num.endsWith(',')) {
+        this.num = this.num.slice(0, -1);
+      }
+
       this.operator = buttonValue;
       this.numTwo =
         this.num === '' ? this.numTwo.toString() : this.num.toString();
